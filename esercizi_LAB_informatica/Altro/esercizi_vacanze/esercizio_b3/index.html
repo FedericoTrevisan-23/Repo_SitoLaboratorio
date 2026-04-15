@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Esercizio B3</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .output-box { 
+            background: #f4f4f4; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            font-family: monospace; 
+            white-space: pre; 
+            height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Esercizio B3</h2>
+    
+    <div id="output" class="output-box"></div>
+
+    <script>
+        function scriviOutput(testo) {
+            document.getElementById("output").innerHTML += testo + "\n";
+        }
+
+        const N = 4; 
+        const M = 5; 
+
+        scriviOutput("Generazione grafo per scacchiera " + N + "x" + M + "...\n");
+
+        let grafo = []; 
+
+        for (let i = 0; i < N; i++) {      
+            for (let j = 0; j < M; j++) {   
+                
+                let nodo = {
+                    id: `(${i},${j})`, 
+                    riga: i,
+                    colonna: j,
+                    vicini: [] 
+                };
+                if (i > 0) {
+                    nodo.vicini.push(`(${i-1},${j})`);
+                }
+                if (i < N - 1) {
+                    nodo.vicini.push(`(${i+1},${j})`);
+                }
+                if (j > 0) {
+                    nodo.vicini.push(`(${i},${j-1})`);
+                }
+                if (j < M - 1) {
+                    nodo.vicini.push(`(${i},${j+1})`);
+                }
+
+                grafo.push(nodo);
+            }
+        }
+        for (let k = 0; k < grafo.length; k++) {
+            let n = grafo[k];
+            scriviOutput("Nodo " + n.id + " è collegato a: " + JSON.stringify(n.vicini));
+            if (n.colonna == M - 1) {
+                scriviOutput(""); 
+            }
+        }
+
+    </script>
+
+</body>
+</html>

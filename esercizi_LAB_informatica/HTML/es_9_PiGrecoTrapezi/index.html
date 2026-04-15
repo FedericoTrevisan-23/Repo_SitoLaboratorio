@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcolo PI - Metodo dei Trapezi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Approssimazione di &pi; (Metodo dei Trapezi)</h2>
+    
+    <div class="controlli">
+        <label for="inputN">Numero di trapezi (n): </label>
+        <input type="number" id="inputN" value="5" min="1" max="500">
+        <button onclick="eseguiCalcolo()">Disegna e Calcola</button>
+    </div>
+
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    
+    <div class="risultati">
+        <p>Somma aree trapezi (S<sub>n</sub>): <span id="area_totale">0.000000</span></p>
+        <p><strong>&pi; Stimato (4 * S<sub>n</sub>): <span id="pi_stimato">0.000000</span></strong></p>
+        <p class="nota">&pi; Reale di riferimento: 3.14159265...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

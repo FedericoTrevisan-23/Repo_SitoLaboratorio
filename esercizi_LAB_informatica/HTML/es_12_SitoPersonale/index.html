@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progetto Teoria dei Giochi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="barra-navigazione">
+        <div class="titolo-navigazione">Progetto di Informatica: Teoria dei Giochi</div>
+        <div class="link-navigazione">
+            <a href="index.html" class="attivo">Simulazione</a>
+            <a href="contesto.html">Contesto</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>LA TEORIA DEI GIOCHI</h1>
+        <p>Come la cooperazione si rivela la scelta più sensata.</p>
+        
+        <div id="riquadro-regole">
+            <h3>Regole:</h3>
+            <p>In ogni turno o iterazione, i soggetti scelgono se <strong>Cooperare</strong> o <strong>Tradire</strong>.</p>
+            <ul>
+                <li><strong>1 Caso, Entrambi cooperano: </strong> Entrambi ottengono 3 monete.</li>
+                <li><strong>2 Caso, Uno dei due tradisce e l'altro coopera:</strong> Chi tradisce ottiene 5 monete, chi coopera ottiene 0.</li>
+                <li><strong>3 Caso, Entrambi tradiscono: </strong> Entrambi ottengono solo 1 moneta.</li>
+            </ul>
+            <p>Il <strong>"Punto di non ritorno"</strong> rappresenta un valore metaforico dove si presuppone che i due partecipanti siano due nazioni alla corsa alle armi, e il continuo riarmo porti a un'inevitabile distruzione del mondo.</p>
+        </div>
+
+        <div id="comandi-gioco">
+            <select id="selettore-modalita">
+                <option value="umano-vs-umano">Umano 1 VS Umano 2</option>
+                <option value="umano-vs-computer">Umano vs Computer (Algoritmo Tit for Tat)</option>
+            </select>
+            <div id="contenitore-ambiente">
+                <div>Punto di non ritorno: <span id="livello-ambiente">5</span>/5</div>
+                <div class="sfondo-barra"><div id="barra-ambiente" class="riempimento-barra"></div></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenitore-principale">
+        <section class="zona-giocatore" id="zona-g1">
+            <h2>Umano 1</h2>
+            <div class="indicatore-stato" id="stato-g1">In attesa di input</div>
+            <div class="pulsanti">
+                <p>Tasto <strong>A</strong> = Coopera</p>
+                <p>Tasto <strong>S</strong> = Tradisci</p>
+            </div>
+            <div class="contenitore-risorse">
+                <p>Risorse: <span id="punteggio-g1">0</span></p>
+                <div class="sfondo-barra"><div id="barra-g1" class="riempimento-barra barra-risorse"></div></div>
+            </div>
+        </section>
+
+        <section class="zona-centrale">
+            <div id="schermo-centrale">
+                <h3>Output</h3>
+                <div id="stato-caricamento" style="display: none;">
+                    <div class="rotella-caricamento"></div>
+                    <p>Elaborazione dati in corso</p>
+                </div>
+                <div id="stato-risultato">
+                    <p id="messaggio-globale">In attesa delle mosse.</p>
+                    <button id="bottone-avanti" style="display: none;">Prossimo Turno</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="zona-giocatore" id="zona-g2">
+            <h2 id="titolo-g2">Soggetto 2</h2>
+            <div class="indicatore-stato" id="stato-g2">In attesa di input</div>
+            <div class="pulsanti" id="pulsanti-g2">
+                <p><strong>Freccia Sinistra</strong> = Coopera</p>
+                <p><strong>Freccia Destra</strong> = Tradisci</p>
+            </div>
+            <div class="contenitore-risorse">
+                <p>Risorse: <span id="punteggio-g2">0</span></p>
+                <div class="sfondo-barra"><div id="barra-g2" class="riempimento-barra barra-risorse"></div></div>
+            </div>
+        </section>
+    </main>
+
+    <section class="zona-registro">
+        <h3>Registro Turni</h3>
+        <table id="tabella-registro">
+            <thead>
+                <tr>
+                    <th>Turno/Iterazione</th>
+                    <th>Mossa Soggetto 1</th>
+                    <th>Mossa Soggetto 2</th>
+                    <th>Risorse</th>
+                </tr>
+            </thead>
+            <tbody id="corpo-registro">
+                </tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

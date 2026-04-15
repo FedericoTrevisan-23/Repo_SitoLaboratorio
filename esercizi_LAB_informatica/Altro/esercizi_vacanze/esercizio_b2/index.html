@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Esercizio B2</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .output-box { 
+            background: #f4f4f4; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            font-family: monospace; 
+            white-space: pre; 
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Esercizio B2</h2>
+    <p>Calcolo dei percorsi minimi partendo da un nodo sorgente.</p>
+    
+    <div id="output" class="output-box"></div>
+
+    <script>
+        function scriviOutput(testo) {
+            document.getElementById("output").innerHTML += testo + "\n";
+        }
+        const nodi = [
+            { id: 0, name: "Roma" },
+            { id: 1, name: "Milano" },
+            { id: 2, name: "Napoli" },
+            { id: 3, name: "Firenze" },
+            { id: 4, name: "Bologna" } 
+        ];
+
+        const matricePesi = [
+            // RM   MI   NA   FI   BO
+            [0,    0,   220, 270, 0  ], 
+            [0,    0,   0,   300, 215], 
+            [220,  0,   0,   0,   0  ], 
+            [270,  300, 0,   0,   100], 
+            [0,    215, 0,   100, 0  ]  
+        ];
+
+        function dijkstra(grafo, partenza) {
+            let n = grafo.length; 
+            let distanze = [];
+            let visitati = []; 
+
+            for (let i = 0; i < n; i++) {
+                distanze[i] = Infinity; 
+                visitati[i] = false;   
+            }
+
+            distanze[partenza] = 0;
+
+            for (let conta = 0; conta < n; conta++) {
+                let u = -1; 
+                let minVal = Infinity;
+
+                for (let i = 0; i < n; i++) {
+                    if (!visitati[i] && distanze[i] < minVal) {
+                        minVal = distanze[i];
+                        u = i;
+                    }
+                }
+
+                if (u == -1) break;
+                visitati[u] = true;
+                for (let v = 0; v < n; v++) {
+                    
+                    if (grafo[u][v] > 0 && !visitati[v]) {
+                        let nuovaDistanza = distanze[u] + grafo[u][v];
+
+                        if (nuovaDistanza < distanze[v]) {
+                            distanze[v] = nuovaDistanza;
+                        }
+                    }
+                }
+            }
+
+            return distanze;
+        }
+
+        let startNode = 0;
+        scriviOutput("--- CALCOLO PERCORSI DA: " + nodi[startNode].name + " ---");
+        
+        let risultati = dijkstra(matricePesi, startNode);
+
+        for (let i = 0; i < risultati.length; i++) {
+            scriviOutput("Distanza per " + nodi[i].name + ": " + risultati[i] + " km");
+        }
+
+        scriviOutput("\n"); 
+        startNode = 1;
+        scriviOutput("--- CALCOLO PERCORSI DA: " + nodi[startNode].name + " ---");
+        
+        risultati = dijkstra(matricePesi, startNode);
+
+        for (let i = 0; i < risultati.length; i++) {
+            scriviOutput("Distanza per " + nodi[i].name + ": " + risultati[i] + " km");
+        }
+
+    </script>
+
+</body>
+</html>

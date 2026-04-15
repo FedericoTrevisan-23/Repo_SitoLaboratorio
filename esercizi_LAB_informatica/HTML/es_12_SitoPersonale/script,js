@@ -1,0 +1,155 @@
+let sceltaG1 = "";
+let sceltaG2 = "";
+let punteggioG1 = 0;
+let punteggioG2 = 0;
+let livelloAmbiente = 5; 
+let ultimaMossaG1 = "coopera";
+let giocoTerminato = false;
+let numeroTurno = 0; 
+
+const statoG1 = document.getElementById("stato-g1");
+const statoG2 = document.getElementById("stato-g2");
+const messaggioGlobale = document.getElementById("messaggio-globale");
+const bottoneAvanti = document.getElementById("bottone-avanti");
+const displayPunteggioG1 = document.getElementById("punteggio-g1");
+const displayPunteggioG2 = document.getElementById("punteggio-g2");
+const selettoreModalita = document.getElementById("selettore-modalita");
+const displayLivelloAmbiente = document.getElementById("livello-ambiente");
+const titoloG2 = document.getElementById("titolo-g2");
+const pulsantiG2 = document.getElementById("pulsanti-g2");
+
+const barraG1 = document.getElementById("barra-g1");
+const barraG2 = document.getElementById("barra-g2");
+const barraAmbiente = document.getElementById("barra-ambiente");
+const statoCaricamento = document.getElementById("stato-caricamento");
+const statoRisultato = document.getElementById("stato-risultato");
+const corpoRegistro = document.getElementById("corpo-registro");
+
+selettoreModalita.addEventListener("change", function() {
+    if (selettoreModalita.value === "umano-vs-computer") {
+        titoloG2.textContent = "Soggetto 2 (Computer)";
+        pulsantiG2.innerHTML = "<p>Strategia: Tit for Tat</p>";
+    } else {
+        titoloG2.textContent = "Soggetto 2";
+        pulsantiG2.innerHTML = "<p><strong>Freccia Sinistra</strong> = Coopera</p><p><strong>Freccia Destra</strong> = Tradisci</p>";
+    }
+    resetTurno();
+});
+
+document.addEventListener("keydown", function(event) {
+    if (giocoTerminato || (sceltaG1 !== "" && sceltaG2 !== "")) return;
+
+    if (event.key === "a" || event.key === "A") { sceltaG1 = "coopera"; impostaPronto(statoG1, "1"); }
+    else if (event.key === "s" || event.key === "S") { sceltaG1 = "tradisci"; impostaPronto(statoG1, "1"); }
+
+    if (selettoreModalita.value === "umano-vs-computer" && sceltaG1 !== "") {
+        sceltaG2 = ultimaMossaG1; 
+        impostaPronto(statoG2, "2");
+        avviaCalcolo(); 
+        return; 
+    }
+
+    if (selettoreModalita.value === "umano-vs-umano") {
+        if (event.key === "ArrowLeft") { sceltaG2 = "coopera"; impostaPronto(statoG2, "2"); }
+        else if (event.key === "ArrowRight") { sceltaG2 = "tradisci"; impostaPronto(statoG2, "2"); }
+    }
+
+    if (sceltaG1 !== "" && sceltaG2 !== "") avviaCalcolo();
+});
+
+function impostaPronto(elemento, soggetto) {
+    elemento.textContent = `Soggetto ${soggetto}: Input Ricevuto`;
+    elemento.classList.add("pronto");
+}
+
+function avviaCalcolo() {
+    statoRisultato.style.display = "none";
+    statoCaricamento.style.display = "block";
+    
+    setTimeout(calcolaRisultato, 1500); 
+}
+
+function calcolaRisultato() {
+    statoCaricamento.style.display = "none";
+    statoRisultato.style.display = "block";
+    
+    numeroTurno++;
+    ultimaMossaG1 = sceltaG1;
+    let variazioneTesto = "";
+
+    if (sceltaG1 === "coopera" && sceltaG2 === "coopera") {
+        messaggioGlobale.innerHTML = "ESITO: Cooperazione Reciproca.<br>Entrambi ottengono 3 monete.";
+        punteggioG1 += 3; punteggioG2 += 3;
+        variazioneTesto = "+3 | +3";
+    } else if (sceltaG1 === "coopera" && sceltaG2 === "tradisci") {
+        messaggioGlobale.innerHTML = "ESITO: Tradimento Unilaterale (2).<br>Soggetto 2 ottiene 5 monete, Soggetto 1 zero.";
+        punteggioG2 += 5; 
+        variazioneTesto = "+0 | +5";
+    } else if (sceltaG1 === "tradisci" && sceltaG2 === "coopera") {
+        messaggioGlobale.innerHTML = "ESITO: Tradimento Unilaterale (1).<br>Soggetto 1 ottiene 5 monete, Soggetto 2 zero.";
+        punteggioG1 += 5; 
+        variazioneTesto = "+5 | +0";
+    } else if (sceltaG1 === "tradisci" && sceltaG2 === "tradisci") {
+        messaggioGlobale.innerHTML = "ESITO: Tradimento Reciproco.<br>Situazione subottimale: 1 moneta a testa.";
+        punteggioG1 += 1; punteggioG2 += 1; 
+        variazioneTesto = "+1 | +1";
+        
+        livelloAmbiente--;
+        displayLivelloAmbiente.textContent = livelloAmbiente;
+        aggiornaBarraAmbiente();
+        
+        if (livelloAmbiente === 0) { collassoAmbientale(); return; }
+    }
+
+    displayPunteggioG1.textContent = punteggioG1;
+    displayPunteggioG2.textContent = punteggioG2;
+    aggiornaBarreRisorse();
+    aggiungiRigaRegistro(variazioneTesto);
+    
+    bottoneAvanti.style.display = "inline-block";
+}
+
+function aggiornaBarreRisorse() {
+    let percG1 = Math.min(punteggioG1 * 2, 100);
+    let percG2 = Math.min(punteggioG2 * 2, 100);
+    barraG1.style.width = percG1 + "%";
+    barraG2.style.width = percG2 + "%";
+}
+
+function aggiornaBarraAmbiente() {
+    let percAmbiente = (livelloAmbiente / 5) * 100;
+    barraAmbiente.style.width = percAmbiente + "%";
+    
+    if (livelloAmbiente === 3) barraAmbiente.style.backgroundColor = "#f1c40f"; 
+    if (livelloAmbiente <= 2) barraAmbiente.style.backgroundColor = "#e74c3c"; 
+}
+
+function aggiungiRigaRegistro(variazioneTesto) {
+    const nuovaRiga = document.createElement("tr");
+        nuovaRiga.innerHTML = `
+        <td><strong>${numeroTurno}</strong></td>
+        <td>${sceltaG1 === "coopera" ? "Coopera" : "Tradisce"}</td>
+        <td>${sceltaG2 === "coopera" ? "Coopera" : "Tradisce"}</td>
+        <td>${variazioneTesto}</td>
+    `;
+    
+    corpoRegistro.prepend(nuovaRiga);
+}
+
+function collassoAmbientale() {
+    giocoTerminato = true;
+    messaggioGlobale.innerHTML = "I traditori si sono eliminati a vicenda.<br> FINE DELLA SIMULAZIONE.";
+    document.body.classList.add("fine-gioco");
+    bottoneAvanti.style.display = "none";
+    selettoreModalita.disabled = true;
+}
+
+bottoneAvanti.addEventListener("click", resetTurno);
+
+function resetTurno() {
+    sceltaG1 = ""; sceltaG2 = "";
+    statoG1.textContent = "In attesa di input..."; statoG1.classList.remove("pronto");
+    statoG2.textContent = "In attesa di input..."; statoG2.classList.remove("pronto");
+    messaggioGlobale.textContent = "Fai la tua mossa.";
+    bottoneAvanti.style.display = "none";
+}

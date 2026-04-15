@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Esercizio A1</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid black; 
+            background-color: #f0f0f0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Esercizio A1</h2>
+    <canvas id="lavagna" width="300" height="300"></canvas>
+
+    <script>
+        const canvas = document.getElementById("lavagna");
+        const ctx = canvas.getContext("2d");
+
+        const board = [
+            [2, 0, 1],
+            [0, 1, 0],
+            [2, 0, 0]
+        ];
+
+        let dimensione = 100;
+
+        for (let i = 0; i < 3; i++) {       
+            for (let j = 0; j < 3; j++) {   
+                
+                let valore = board[i][j];
+
+                let x = j * dimensione;
+                let y = i * dimensione;
+
+                ctx.beginPath();
+                ctx.strokeStyle = "black"; 
+                ctx.lineWidth = 1;         
+                ctx.strokeRect(x, y, dimensione, dimensione);
+                
+                if (valore == 1) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "blue";
+                    ctx.lineWidth = 3; 
+                    ctx.arc(x + 50, y + 50, 35, 0, 2 * Math.PI);
+                    ctx.stroke();
+
+                } else if (valore == 2) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "red";
+                    ctx.lineWidth = 3;
+                    ctx.moveTo(x + 20, y + 20);
+                    ctx.lineTo(x + 80, y + 80);
+                    ctx.moveTo(x + 80, y + 20);
+                    ctx.lineTo(x + 20, y + 80);
+                    
+                    ctx.stroke();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

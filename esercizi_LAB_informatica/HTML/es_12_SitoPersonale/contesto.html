@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoria - Dilemma del Prigioniero</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contenuto-teoria {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: left;
+            max-width: 1050px;
+            width: 100%;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+        .contenuto-teoria h2 { color: #0ea5e9; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .contenuto-teoria h2:first-child { margin-top: 0; }
+        .contenuto-teoria p { margin-bottom: 15px; }
+        .contenuto-teoria strong { color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <nav class="barra-navigazione">
+        <div class="titolo-navigazione">Progetto Info: Teoria dei Giochi</div>
+        <div class="link-navigazione">
+            <a href="index.html">Simulazione</a>
+            <a href="contesto.html" class="attivo">Contesto</a>
+        </div>
+    </nav>
+
+    <main class="contenuto-teoria">
+        <h2>Il Contesto Storico: La Guerra Fredda</h2>
+        <p>Il concetto alla base di questo progetto affonda le radici nella minaccia nucleare. Tutto inizia il 3 settembre 1949, quando un aereo americano rileva campioni d'aria con tracce radioattive (isotopi come il cerio-141 e l'ittrio-91) sopra il Giappone. L'unica conclusione possibile era che l'Unione Sovietica avesse sviluppato la bomba atomica.</p>
+        <p>La notizia pose fine alla supremazia militare post-Progetto Manhattan degli Stati Uniti. Nel 1950, per analizzare questa corsa agli armamenti, due matematici della Rand Corporation inventarono il modello matematico che oggi conosciamo come <strong>Dilemma del Prigioniero</strong>.</p>
+
+        <h2>Il Paradosso della Razionalità</h2>
+        <p>Analizzando il gioco, emerge che la scelta più "razionale" per il singolo individuo, per massimizzare il proprio tornaconto immediato, è sempre tradire l'avversario. Tuttavia, il paradosso si verifica quando entrambi gli attori agiscono in modo razionale ed egoistico: finiscono per tradirsi a vicenda, ottenendo un risultato subottimale rispetto a quello che avrebbero ottenuto cooperando.</p>
+        <p>Questo descrive perfettamente la corsa agli armamenti nucleari: entrambe le superpotenze spesero miliardi in arsenali che non potevano usare, finendo in una situazione peggiore e più pericolosa rispetto a una cooperazione per il disarmo.</p>
+
+        <h2>Il Torneo di Robert Axelrod e la Strategia Vincente</h2>
+        <p>Nel 1980, lo scienziato politico Robert Axelrod organizzò un torneo di computer per scoprire la migliore strategia in un Dilemma del Prigioniero ripetuto nel tempo.</p>
+        <p>La strategia vincitrice fu <strong>Tit for Tat (Occhio per occhio)</strong>, inviata da Anatol Rapaport, che è la stessa implementata nell'algoritmo di simulazione di questo sito. È una strategia incredibilmente semplice: inizia cooperando e poi replica esattamente l'ultima mossa dell'avversario.</p>
+        <p>Ha trionfato perché possiede tre caratteristiche fondamentali:</p>
+        <ul>
+            <li><strong>Non tradisce mai per prima.</strong></li>
+            <li><strong>Reagisce immediatamente al tradimento.</strong></li>
+            <li><strong>Torna subito a cooperare se l'avversario dimostra di volerlo fare.</strong></li>
+        </ul>
+
+        <h2>Conclusioni</h2>
+        <p>Axelrod dimostrò matematicamente che la cooperazione può emergere e sopravvivere persino in un mondo di individui puramente egoisti, purché ci sia la possibilità di interazioni future. Come dimostra la nostra simulazione interattiva, a lungo termine sono le scelte dei giocatori a plasmare l'ambiente in cui si trovano.</p>
+    </main>
+
+</body>
+</html>

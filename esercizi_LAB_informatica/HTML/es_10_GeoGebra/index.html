@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini GeoGebra - Grafico di Funzioni</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h2>Disegna il Grafico di f(x)</h2>
+        <div class="controlli">
+            <label for="funzione">f(x) = </label>
+            <input type="text" id="funzione" value="sin(x) * x" placeholder="es. x^2, sin(x), cos(x)+1">
+            <button onclick="disegnaGrafico()">Disegna</button>
+        </div>
+        <p class="suggerimento">Prova funzioni come: <code>x^2</code>, <code>sin(x)</code>, <code>cos(x)*x</code>, <code>sqrt(x)</code></p>
+    </header>
+
+    <main>
+        <canvas id="pianoCartesiano" width="600" height="600"></canvas>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

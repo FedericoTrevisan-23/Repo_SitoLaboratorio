@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcolo PI - Metodo Monte Carlo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Approssimazione di &pi; (Metodo Monte Carlo)</h2>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    
+    <div>
+        <p>Punti Totali (N): <span id="totali">0</span></p>
+        <p>Punti nel Cerchio (M): <span id="cerchio">0</span></p>
+        <p><strong>&pi; Stimato (4 * M / N): <span id="pi_stimato">0.0000</span></strong></p>
+        <button onclick="aggiungiPunti(1000)">Aggiungi 1000 Punti</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

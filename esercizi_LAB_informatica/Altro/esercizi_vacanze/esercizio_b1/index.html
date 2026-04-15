@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Esercizio B1 - Grafi</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .output-box { 
+            background: #f4f4f4; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            font-family: monospace; 
+            white-space: pre; 
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Esercizio B1</h2>    
+    <div id="output" class="output-box"></div>
+
+    <script>
+        function scriviOutput(testo) {
+            document.getElementById("output").innerHTML += testo + "\n";
+        }
+
+        const nodi = [
+            { id: 0, name: "Roma",    content: { info: "Capitale" } },
+            { id: 1, name: "Milano",  content: { info: "Nord" } },
+            { id: 2, name: "Napoli",  content: { info: "Sud" } },
+            { id: 3, name: "Firenze", content: { info: "Centro" } }
+        ];
+        
+        const matricePesi = [
+            // RM(0) MI(1) NA(2) FI(3)
+            [0,    570,  220,  270], 
+            [570,  0,    0,    300], 
+            [220,  0,    0,    0  ], 
+            [270,  300,  0,    0  ]  
+        ];
+
+        
+        function trovaLatiAdiacenti(matrice, indiceU) {
+            let latiTrovati = []; 
+            
+            for (let v = 0; v < matrice.length; v++) {
+                
+                let peso = matrice[indiceU][v];
+
+                if (peso > 0) {
+                    
+                    let nuovoLato = {
+                        u: indiceU, 
+                        v: v,       
+                        w: peso     
+                    };
+
+                    latiTrovati.push(nuovoLato);
+                }
+            }
+            
+            return latiTrovati;
+        }
+        let idDaCercare = 0;
+        scriviOutput("Cerco i lati adiacenti al nodo: " + nodi[idDaCercare].name + " (ID: " + idDaCercare + ")");
+        
+        let risultati = trovaLatiAdiacenti(matricePesi, idDaCercare);
+        scriviOutput("Risultati trovati: " + JSON.stringify(risultati, null, 2));
+
+        scriviOutput("\n-------------------\n");
+        idDaCercare = 3;
+        scriviOutput("Cerco i lati adiacenti al nodo: " + nodi[idDaCercare].name + " (ID: " + idDaCercare + ")");
+        risultati = trovaLatiAdiacenti(matricePesi, idDaCercare);
+        scriviOutput("Risultati trovati: " + JSON.stringify(risultati, null, 2));
+
+    </script>
+
+</body>
+</html>
